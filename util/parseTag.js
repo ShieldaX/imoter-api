@@ -12,15 +12,40 @@ var options = {
   }
 };
 
-var parseTag = (spec_options, tag) => {
-  requesto(spec_options)
+var parseTag = (spec_options, tags) => {
+  tag = tags[0];
+  //resolve target page link
+  var cur_host = url.parse(spec_options.uri).host;
+  var options = {uri: 'https://'+cur_host+'/gallery/'+tag.id};
+  options.transform = spec_options.transform;
+  // console.log(options.uri);
+  requesto(options)
   .then(($) => {
     tag.desc = $('#ddesc').text();
-    console.log(tag);
+    // console.log(tag);
   })
   .catch((err) => {
     console.log(err);
+  })
+  .finally(() => {
+    return tag;
   });
+};
+
+async function parseTags(spec_options, tags){
+  let finaltag;
+  try{
+    finaltag = await parseTag(spec_options, tags);
+  }catch(err){
+    console.log(err);
+  };
+  tags = tags.splice(0, 1);
+  console.log(tags);
+  if (tags.length > 0) {
+    // return parseTags(spec_options, tags);
+  }else{
+    return "all done"
+  };
 };
 
 var parseTagList = (spec_options) => {
@@ -34,15 +59,11 @@ var parseTagList = (spec_options) => {
         var tag = {};
         tag.type = types[index];
         var href = $(el).attr('href')
-        //reslove tag detail url
-        var options = {uri: 'https://'+cur_host+href};
-        options.transform = spec_options.transform // make a copy
         var tagId = href.split('/')[2];
         var tagName = $(el).text();
         tag.id = tagId;
         tag.name = tagName;
         tags.push(tag);
-        parseTag(options, tag);
       });
     });
   })
@@ -50,7 +71,8 @@ var parseTagList = (spec_options) => {
     console.log(err);
   })
   .finally(() => {
-    // console.log(tags);
+    console.log(tags);
+    parseTags(spec_options, tags);
   });
 };
 
