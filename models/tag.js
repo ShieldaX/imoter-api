@@ -9,12 +9,13 @@ var Schema = mongoose.Schema;
 
 //对标签进行分类
 var types = {
-  values: 'beauty country style publisher body megazine scene role'.split(' '),
+  values: 'country style publisher body megazine scene role'.split(' '),
   message: 'enum validator failed for path `{PATH}` with value `{VALUE}`'
 };
 
 //标签分类图源范式
 var TagSchema = new Schema({
+  id: String,
   //专辑的分类标签名称发布专辑的出版商、平台或者原始图源的名称
   name: {
     type: String,
@@ -27,8 +28,7 @@ var TagSchema = new Schema({
   //对标签进行分类，发布专辑的出版商、平台或者原始图源等
   type: {
     type: String,
-    enum: types,
-    default: 'beauty'
+    enum: types
   },
   //特殊标签二级分类
   belongs: {

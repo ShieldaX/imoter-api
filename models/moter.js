@@ -7,7 +7,9 @@ var validator = require('validator');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-
+/**
+ * Schema define.
+ */
 //模特范式
 var MoterSchema = new Schema({
   //记录来自图源的编号
@@ -21,14 +23,35 @@ var MoterSchema = new Schema({
     type: String,
     require: true
   },
-  //摘要文字
-  excerpt: String,
-  //年龄
-  birth: {
-    year: Number,
-    month: Number,
-    day: Number
+  names: {
+    alias: String,
+    cname: String,
+    ename: String
   },
+  //生日
+  birthday: Date,
+  //血型
+  blood: String,
+  //身材
+  height: Number,
+  weight: Number,
+  measure: {
+    bust: Number,
+    waist: Number,
+    hips: Number
+  },
+  cup: String,
+  country: String,
+  birthplace: String,
+  career: [String],
+  hobbies: [String],
+  //评分统计
+  scores: {
+    score: Number,
+    votes: Number
+  },
+  //摘要文字
+  bio: String,
   //被关注数目标记
   follows: {
     type: Number,
@@ -46,11 +69,6 @@ var MoterSchema = new Schema({
     type: Date,
     default: Date.now,
     select: false
-  },
-  //分数统计
-  score: {
-    votes: Number,
-    num: Number
   },
     //状态：上线online（默认）or 下线offline
   online: {
@@ -75,7 +93,7 @@ var MoterSchema = new Schema({
  */
 
 /**
- * Virtual
+ * Virtuals
  */
 
 //年龄
