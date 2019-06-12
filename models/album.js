@@ -18,7 +18,7 @@ var AlbumSchema = new Schema({
   //标题
   title: String,
   //简述
-  desc: String,
+  excerpt: String,
   //将资源站的模特索引保证存储在模特数组第一索引位置
   moters: [{
     type: String,
@@ -35,8 +35,7 @@ var AlbumSchema = new Schema({
   },
   // 标签列表（数组嵌入）
   tags: {
-    type: [String],
-    index: true
+    type: [String]
   },
   // 创建时间
   created: {
