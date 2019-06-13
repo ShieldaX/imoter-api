@@ -58,6 +58,8 @@ var MoterSchema = new Schema({
     default: 0，
     min: 0,
   },
+  debuted: Date,
+  retired: Date,
   // 创建时间
   created: {
     type: Date,

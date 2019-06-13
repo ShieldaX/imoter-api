@@ -87,7 +87,7 @@ var parseTagList = (spec_options, interval, limit) => {
   });
 };
 
-options.uri = 'https://www.nvshens.com/gallery/riben/'
-parseTagList(options, 2000);
+options.uri = 'https://www.nvshens.com/gallery/'
+parseTagList(options, 5000);
 
 // module.exports.parseTagList = parseTagList;
