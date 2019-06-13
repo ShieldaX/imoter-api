@@ -3,15 +3,15 @@
 /**
  * Module dependencies.
  */
-var validator = require('validator');
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+// const validator = require('validator');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 /**
  * Schema define.
  */
 //模特范式
-var MoterSchema = new Schema({
+const MoterSchema = new Schema({
   //记录来自图源的编号
   id: {
     type: String,
@@ -52,7 +52,7 @@ var MoterSchema = new Schema({
   },
   //简介
   bio: String,
-  //被关注数目标记
+  //被关注数目标记(热度)
   follows: {
     type: Number,
     default: 0，
@@ -77,7 +77,7 @@ var MoterSchema = new Schema({
   //状态：上线online（默认）or 下线offline
   _online: {
     type: Boolean,
-    default: 'true'
+    default: true
   }
 });
 
@@ -101,11 +101,11 @@ var MoterSchema = new Schema({
  */
 
 //年龄
-MoterSchema.virtual('age').get(function () {
-  var year = this.birth.year;
-  var age = 2019 - year;
-  return age;
-});
+// MoterSchema.virtual('age').get(function () {
+//   let year = this.birth.year;
+//   let age = 2019 - year;
+//   return age;
+// });
 
 
 /**

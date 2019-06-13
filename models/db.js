@@ -1,6 +1,6 @@
 // 依赖引入
-var mongoose = require('mongoose');
-var config = require('../config').config;
+const mongoose = require('mongoose');
+const config = require('../config').config;
 
 // 连接数据库
 mongoose.connect(config.db);

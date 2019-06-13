@@ -3,24 +3,38 @@
 /**
  * Module dependencies.
  */
-var validator = require('validator');
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema
-var passportLocalMongoose = require('passport-local-mongoose');
+const validator = require('validator');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema
+const passportLocalMongoose = require('passport-local-mongoose');
 
 /**
  * 定义用户模式
  */
-var UserSchema = new Schema({
-  // 注册邮箱
-  email: {
+const UserSchema = new Schema({
+  phone: {  //优先手机号注册
+    type: String,
+    // required: true,
+    trim: true
+  },
+  email: {  //注册邮箱
     type: String,
     required: true,
     lowercase: true,
     trim: true
   },
-  // 用户的标签列表（数组嵌入）- Array of String
-  //tags: [String]
+  // 用户列表（数组嵌入）- Array of String
+  following: [String], // 关注模特列表
+  favorites: [String] // 收藏图集列表
+  isVip: {  // VIP状态
+    type: Boolean,
+    default: false
+  },
+  //状态：上线online（默认）or 下线offline
+  _online: {
+    type: Boolean,
+    default: true
+  }
 });
 
 /* 对标签时进行排序
@@ -42,7 +56,7 @@ UserSchema.pre('save', function (next) {
  * Validators
  */
 UserSchema.path('email').validate(function(email) {
-  var isEmail = validator.isEmail(email);
+  let isEmail = validator.isEmail(email);
   return isEmail;
 }, 'Invalid email format');
 
@@ -72,7 +86,7 @@ UserSchema.statics.findByEmail = function (email, callback) {
  */
 
 // Passport plugin
-var passportOpts = {
+const passportOpts = {
   usernameField: 'email',
   selectFields: 'email'
 };

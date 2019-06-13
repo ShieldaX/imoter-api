@@ -3,13 +3,13 @@
 /**
  * Module dependencies.
  */
-var validator = require('validator');
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-//var Moter = require('./moter');
+// var validator = require('validator');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+//const Moter = require('./moter');
 
 //图集范式
-var AlbumSchema = new Schema({
+const AlbumSchema = new Schema({
   //图源提供的索引
   id: {
     type: String,
@@ -53,7 +53,7 @@ var AlbumSchema = new Schema({
   //状态：上线online（默认）or 下线offline
   _online: {
     type: Boolean,
-    default: 'true'
+    default: true
   }
 });
 
@@ -68,7 +68,7 @@ var AlbumSchema = new Schema({
 
 // 创建对应的链接
 // AlbumSchema.pre('save', true, function (next, done) {
-//   // var url = this.link;
+//   // const url = this.link;
 
 //   // console.log('链接：' + url);
 //   Link.findOne({_id: url}, function (err, link) {
