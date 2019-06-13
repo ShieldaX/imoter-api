@@ -12,57 +12,65 @@ var options = {
   }
 };
 
-var parseTag = (spec_options, tags) => {
-  tag = tags[0];
+var Delay_Time = function(ms) {
+    return new Promise(function(resolve) {
+        setTimeout(resolve, ms);
+    } )
+};
+
+// 解析出TAG对应的详情介绍并返回结果(以备保存)
+async function parseTag(spec_options, tag){
   //resolve target page link
   var cur_host = url.parse(spec_options.uri).host;
   var options = {uri: 'https://'+cur_host+'/gallery/'+tag.id};
   options.transform = spec_options.transform;
   // console.log(options.uri);
-  requesto(options)
+  await requesto(options)
   .then(($) => {
     tag.desc = $('#ddesc').text();
     // console.log(tag);
   })
   .catch((err) => {
     console.log(err);
-  })
-  .finally(() => {
-    return tag;
   });
+  return tag;
 };
 
-async function parseTags(spec_options, tags){
-  let finaltag;
-  try{
-    finaltag = await parseTag(spec_options, tags);
-  }catch(err){
-    console.log(err);
-  };
-  tags = tags.splice(0, 1);
-  console.log(tags);
-  if (tags.length > 0) {
-    // return parseTags(spec_options, tags);
+// 依次解析列表中的TAG任务
+async function parseTags(spec_options, tags, interval){
+  var finaltag;
+  if (tags.length > 1) {
+    try{
+      // 使用await关键字确保每次抓完再抓列表中的下一个
+      finaltag = await parseTag(spec_options, tags[0]);
+      console.log(finaltag);
+      // 从原始列表中取出已经解析完成的TAG
+      tags.splice(0, 1);
+      // 设置间隔时间
+      await Delay_Time(interval);
+      // 继续抓取列表中剩余的TAG
+      parseTags(spec_options, tags, interval);
+    }catch(err){
+      console.log(err);
+    };
   }else{
-    return "all done"
+    return console.log("All Done");
   };
 };
 
-var parseTagList = (spec_options) => {
-  var cur_host = url.parse(spec_options.uri).host;
+//一次性抓取所有TAG作为任务列表
+var parseTagList = (spec_options, interval, limit) => {
   var types = 'country style body role publisher scene megazine'.split(' ');
   var tags = [];
   requesto(spec_options)
   .then(($) => {
     $('.tag_div').each((index, element) => {
       $(element).find('li a').each((i, el) => {
-        var tag = {};
-        tag.type = types[index];
-        var href = $(el).attr('href')
-        var tagId = href.split('/')[2];
-        var tagName = $(el).text();
-        tag.id = tagId;
-        tag.name = tagName;
+        var tag = {
+          id: $(el).attr('href').split('/')[2],
+          name: $(el).text(),
+          type: types[index]
+        };
         tags.push(tag);
       });
     });
@@ -71,12 +79,15 @@ var parseTagList = (spec_options) => {
     console.log(err);
   })
   .finally(() => {
-    console.log(tags);
-    parseTags(spec_options, tags);
+    // console.log(tags);
+    // 抓取完成后(使用splice控制)抓取
+    interval = interval || 5000;
+    if (limit && limit>0) { tags = tags.splice(0, limit) };
+    parseTags(spec_options, tags, interval);
   });
 };
 
-options.uri = 'https://www.nvshens.com/gallery/'
-parseTagList(options);
+options.uri = 'https://www.nvshens.com/gallery/riben/'
+parseTagList(options, 2000);
 
-module.exports.parseTag = parseTag;
+// module.exports.parseTagList = parseTagList;
