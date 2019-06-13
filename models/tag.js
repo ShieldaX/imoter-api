@@ -8,8 +8,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 //对标签进行分类
-var types = {
-  values: 'country style publisher body megazine scene role'.split(' '),
+var categories = {
+  values: 'country style publisher body megazine scene role beauty'.split(' '),
   message: 'enum validator failed for path `{PATH}` with value `{VALUE}`'
 };
 
@@ -26,28 +26,29 @@ var TagSchema = new Schema({
     type: String
   },
   //对标签进行分类，发布专辑的出版商、平台或者原始图源等
-  type: {
+  category: {
     type: String,
-    enum: types
+    enum: categories,
+    default: 'beauty'
   },
   //特殊标签二级分类
   belongs: {
     type: String
   },
-  // 创建时间
+  //创建时间
   created: {
     type: Date,
     default: Date.now,
     select: false
   },
-  // 更新时间
+  //更新时间
   updated: {
     type: Date,
     default: Date.now,
     select: false
   },
-    //状态：上线online（默认）or 下线offline
-  online: {
+  //状态：上线online（默认）or 下线offline
+  _online: {
     type: Boolean,
     default: 'true'
   }

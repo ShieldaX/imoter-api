@@ -27,31 +27,31 @@ var AlbumSchema = new Schema({
   }],
   //该图集包含的图片数量
   pieces: Number,
-  // 被收藏数目标记
+  //标签列表（数组嵌入）
+  tags: {
+    type: [String]
+  },
+  //浏览量统计
+  views: Number,
+  //被收藏数目标记
   favorites: {
     type: Number,
     default: 0，
     min: 0,
   },
-  // 标签列表（数组嵌入）
-  tags: {
-    type: [String]
-  },
-  // 创建时间
+  //创建时间
   created: {
     type: Date,
     default: Date.now
   },
-  // 更新时间
+  //更新时间
   updated: {
     type: Date,
     default: Date.now,
     select: false
   },
-  //浏览量统计
-  views: Number,
   //状态：上线online（默认）or 下线offline
-  online: {
+  _online: {
     type: Boolean,
     default: 'true'
   }
@@ -67,10 +67,10 @@ var AlbumSchema = new Schema({
 // });
 
 // 创建对应的链接
-// ItemSchema.pre('save', true, function (next, done) {
-//   var url = this.link;
+// AlbumSchema.pre('save', true, function (next, done) {
+//   // var url = this.link;
 
-//   console.log('链接：' + url);
+//   // console.log('链接：' + url);
 //   Link.findOne({_id: url}, function (err, link) {
 //     next(); // calling next kicks off the next middleware in parallel
 //     if (err) { return done(err); };

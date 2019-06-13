@@ -25,8 +25,8 @@ var MoterSchema = new Schema({
   },
   names: {
     alias: String,
-    cname: String,
-    ename: String
+    cn: String,
+    en: String
   },
   //生日
   birthday: Date,
@@ -47,10 +47,10 @@ var MoterSchema = new Schema({
   hobbies: [String],
   //评分统计
   scores: {
-    score: Number,
+    count: Number,
     votes: Number
   },
-  //摘要文字
+  //简介
   bio: String,
   //被关注数目标记
   follows: {
@@ -58,22 +58,24 @@ var MoterSchema = new Schema({
     default: 0，
     min: 0,
   },
+  //出道
   debuted: Date,
+  //引退
   retired: Date,
-  // 创建时间
+  //创建时间
   created: {
     type: Date,
     default: Date.now
     select: false
   },
-  // 更新时间
+  //更新时间
   updated: {
     type: Date,
     default: Date.now,
     select: false
   },
-    //状态：上线online（默认）or 下线offline
-  online: {
+  //状态：上线online（默认）or 下线offline
+  _online: {
     type: Boolean,
     default: 'true'
   }
