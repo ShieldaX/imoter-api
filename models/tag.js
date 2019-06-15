@@ -9,13 +9,13 @@ const Schema = mongoose.Schema;
 
 //对标签进行分类
 const categories = {
-  values: 'country style publisher body megazine scene role beauty'.split(' '),
+  values: 'country style publisher body magazine scene role beauty'.split(' '),
   message: 'enum validator failed for path `{PATH}` with value `{VALUE}`'
 };
 
 //标签分类图源范式
 const TagSchema = new Schema({
-  id: String,
+  _id: String,
   //专辑的分类标签名称发布专辑的出版商、平台或者原始图源的名称
   name: {
     type: String,
@@ -35,24 +35,16 @@ const TagSchema = new Schema({
   belongs: {
     type: String
   },
-  // //创建时间
-  // created: {
-  //   type: Date,
-  //   default: Date.now,
-  //   select: false
-  // },
-  // //更新时间
-  // updated: {
-  //   type: Date,
-  //   default: Date.now,
-  //   select: false
-  // },
   //状态：上线online（默认）or 下线offline
   _online: {
     type: Boolean,
     default: true
   }
 });
+
+// 没有附属关联的文档，关闭versionKey控制
+//[REF] https://aaronheckmann.tumblr.com/post/48943525537/mongoose-v3-part-1-versioning
+// TagSchema.set('versionKey', false);
 
 /**
  * Middlewares
