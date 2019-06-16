@@ -3,7 +3,6 @@
 /**
  * Module dependencies.
  */
-// const validator = require('validator');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -24,8 +23,7 @@ const TagSchema = new Schema({
   //对标签进行分类，发布专辑的出版商、平台或者原始图源等
   category: {
     type: String,
-    enum: categories,
-    default: 'beauty'
+    enum: categories
   },
   //发行商、图源或标签的文字简介
   desc: {

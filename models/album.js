@@ -11,9 +11,9 @@ const Schema = mongoose.Schema;
 //图集范式
 const AlbumSchema = new Schema({
   //图源提供的索引
-  id: {
+  _id: {
     type: String,
-    unique: true
+    // unique: true
   },
   //标题
   title: String,
@@ -23,20 +23,22 @@ const AlbumSchema = new Schema({
   moters: [{
     type: String,
     ref: 'Moter',
-    autopopulate: {select: 'id'}
+    autopopulate: {select: '_id name'}
   }],
   //该图集包含的图片数量
   pieces: Number,
   //标签列表（数组嵌入）
-  tags: {
-    type: [String]
-  },
+  tags: [{
+    type: String,
+    ref: 'Tag',
+    autopopulate: {select: '_id name'}
+  }],
   //浏览量统计
   views: Number,
   //被收藏数目标记
   favorites: {
     type: Number,
-    default: 0，
+    default: 0,
     min: 0,
   },
   //创建时间

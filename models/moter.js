@@ -13,9 +13,9 @@ const Schema = mongoose.Schema;
 //模特范式
 const MoterSchema = new Schema({
   //记录来自图源的编号
-  id: {
+  _id: {
     type: String,
-    unique: true
+    // unique: true
   },
   //模特信息
   //名字
@@ -52,10 +52,17 @@ const MoterSchema = new Schema({
   },
   //简介
   bio: String,
+  //标签列表（数组嵌入）
+  labels: [{
+    type: String,
+    ref: 'Label'
+  }],
+  //没有专辑只有一个相册的
+  photos: [String],
   //被关注数目标记(热度)
   follows: {
     type: Number,
-    default: 0，
+    default: 0,
     min: 0,
   },
   //出道
@@ -65,7 +72,7 @@ const MoterSchema = new Schema({
   //创建时间
   created: {
     type: Date,
-    default: Date.now
+    default: Date.now,
     select: false
   },
   //更新时间

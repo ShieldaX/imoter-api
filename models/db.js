@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 const config = require('../config').config;
 
 // 连接数据库
-mongoose.connect(config.db);
+mongoose.connect(config.db, { useNewUrlParser: true }, (err, db) => {
+  if (!err) {
+    //console.log(db);
+  };
+});
 
 // 管理mongoose连接
 
