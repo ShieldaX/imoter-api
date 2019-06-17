@@ -148,6 +148,11 @@ AlbumSchema.methods.addTags = function (tags) {
   this.tags.sort(); // sort alphabetically
 };
 
+// 资源所属的模特为组中最后一个的ID
+AlbumSchema.methods.resolve = function () {
+  console.log(this.moters.last());
+};
+
 AlbumSchema.plugin(require('mongoose-autopopulate'));
 
 module.exports = mongoose.model('Album', AlbumSchema);

@@ -5,6 +5,7 @@ const router = express.Router();
 // 加载控制器
 const moter = require('../controllers/moter');
 const tag = require('../controllers/tag');
+const label = require('../controllers/label');
 const album = require('../controllers/album');
 
 /* GET /api/home?appid=:appid */
@@ -36,5 +37,11 @@ router.get('/tags/:tag_id', tag.show_by_id);
 
 /* GET /api/tags?category=:_category 返回某一_category名下的所有tag */
 router.get('/tags', tag.list_by_category);
+
+/* GET /api/labels/:label_id [Mock]: 按照label的id返回label信息 */
+router.get('/labels/:label_id', label.show_by_id);
+
+/* GET /api/labels?category=:_category 返回某一_category名下的所有label */
+router.get('/labels', label.list_by_category);
 
 module.exports = router;

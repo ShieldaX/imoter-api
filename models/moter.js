@@ -52,11 +52,6 @@ const MoterSchema = new Schema({
   },
   //简介
   bio: String,
-  //标签列表（数组嵌入）
-  labels: [{
-    type: String,
-    ref: 'Label'
-  }],
   //没有专辑只有一个相册的
   photos: [String],
   //被关注数目标记(热度)
