@@ -25,6 +25,10 @@ const LabelSchema = new Schema({
     type: String,
     enum: categories
   },
+  moters: [{
+    type: String,
+    ref: 'Moter'
+  }],
   //状态：上线online（默认）or 下线offline
   _online: {
     type: Boolean,
