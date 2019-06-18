@@ -53,7 +53,9 @@ const MoterSchema = new Schema({
   //简介
   bio: String,
   //没有专辑只有一个相册的
-  photos: [String],
+  gallery: {
+    type: Boolean
+  },
   //被关注数目标记(热度)
   follows: {
     type: Number,

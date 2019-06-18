@@ -7,6 +7,7 @@ const moter = require('../controllers/moter');
 const tag = require('../controllers/tag');
 const label = require('../controllers/label');
 const album = require('../controllers/album');
+const gallery = require('../controllers/gallery');
 
 /* GET /api/home?appid=:appid */
 router.get('/', (req, res, next) => {
@@ -31,6 +32,8 @@ router.get('/albums', album.list_by_moter);
 /* GET /api/moter/:moter_id 按ID返回某模特 */
 //返回一个模特模型
 router.get('/moters/:moter_id', moter.show_by_id);
+
+router.get('/moters/:moter_id/gallery', gallery.show_by_moter_id);
 
 /* GET /api/tags/:tag_id [Mock]: 按照tag的id返回tag信息 */
 router.get('/tags/:tag_id', tag.show_by_id);

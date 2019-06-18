@@ -10,8 +10,6 @@ const Schema = mongoose.Schema;
 
 //图集范式
 const GallerySchema = new Schema({
-  //该图集包含的图片数量
-  // pieces: Number,
   moter: {
     type: String,
     ref: 'Moter',
@@ -119,17 +117,9 @@ GallerySchema.statics.removeById = function (id, callback) {
  * Methods
  */
 
-// 添加标签
-GallerySchema.methods.addTags = function (tags) {
-  tags.forEach(function (tag) {
-    this.tags.push(tag);
-  });
-  this.tags.sort(); // sort alphabetically
-};
-
 // 资源所属的模特为组中最后一个的ID
 GallerySchema.methods.resolve = function () {
-  console.log(this.moters.last());
+  console.log(this.moter);
 };
 
 GallerySchema.plugin(require('mongoose-autopopulate'));
