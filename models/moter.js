@@ -116,6 +116,17 @@ const MoterSchema = new Schema({
  * Statics definition
  */
 
+MoterSchema.statics.findOrCreate = function (model, callback) {
+  this.findById(model._id, function (err, moter) {
+    if (err) return callback(err);
+    if (moter) {
+      callback(moter);
+    } else {
+      return this.create(model, callback);
+    };
+  });
+};
+
 /**
  * 删除id对应的模特
  * @param  {String}   id       模特ID
