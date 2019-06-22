@@ -116,14 +116,12 @@ const MoterSchema = new Schema({
  * Statics definition
  */
 
-MoterSchema.statics.findOrCreate = function (model, callback) {
-  this.findById(model._id, function (err, moter) {
-    if (err) return callback(err);
-    if (moter) {
-      callback(moter);
-    } else {
-      return this.create(model, callback);
-    };
+MoterSchema.statics.findOrCreate = async function (model, callback) {
+  const self = this;
+  self.findById(model._id, function (err, moter) {
+    return moter ? callback(err, moter) : self.create(model, (err, moter) => {
+      return callback(err, moter);
+    })
   });
 };
 
