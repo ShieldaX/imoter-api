@@ -7,7 +7,7 @@ const Moter = require('../models/moter');
  * 读取 查看
  */
 
-exports.show_by_id = async (req, res, next) => {
+exports.showById = async (req, res, next) => {
   console.log('显示一个ID为'+req.params.moter_id+'的模特详情：')
   let moter = await Moter.findById(req.params.moter_id);
   if (moter) {
@@ -15,7 +15,23 @@ exports.show_by_id = async (req, res, next) => {
   };
 };
 
-exports.list_by_label = async (req, res, next) => {
+exports.list= async (req, res, next) => {
+  let skip = req.query.skip || 0;
+  let limit = req.query.limit || 0;
+  try {
+    let moters = await Moter.find({}, '', {autopopulate: false})
+      .sort({created: -1})
+      .select('_id name created')
+      .skip(Number(skip))
+      .limit(Number(limit));
+    res.json({moters});
+  } catch(err) {
+    console.log(err);
+    next(err);
+  }
+};
+
+exports.listByLabel = async (req, res, next) => {
   console.log('显示标签为'+req.params.label_id+'的模特')
   let skip = req.query.skip || 0;
   let limit = req.query.limit || 0;

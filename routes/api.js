@@ -17,34 +17,36 @@ router.get('/', (req, res, next) => {
 	});
 });
 
+/* GET /api/albums?moter=:moter_id(&limit=:numlimit&skip=:numoffset)  按模特ID返回其图集列表 */
+router.get('/albums', album.list);
+
 /* GET /api/album/:album_id 按ID返回某图集 */
 //返回一个图集模型（2.0以及附带的标签以便直接按照标签搜索同类图集）
-router.get('/albums/:album_id', album.show_by_id);
+router.get('/albums/:album_id', album.showById);
 
 /* GET /api/gallery/:tag_id 返回便签下的图集列表 */
-router.get('/gallery/:tag_id', album.list_by_tag);
+router.get('/gallery/:tag_id', album.listByTag);
 
-/* GET /api/albums?moter=:moter_id(&limit=:numlimit&skip=:numoffset)  按模特ID返回其图集列表 */
-router.get('/albums', album.list_by_moter);
+router.get('/gallery', album.listByRegion);
 
 /* GET /api/moters 返回模特列表 */
-
+router.get('/moters', moter.list);
 /* GET /api/moter/:moter_id 按ID返回某模特 */
 //返回一个模特模型
-router.get('/moters/:moter_id', moter.show_by_id);
+router.get('/moters/:moter_id', moter.showById);
 
-router.get('/moters/:moter_id/gallery', gallery.show_by_moter_id);
+router.get('/moters/:moter_id/gallery', gallery.showByMoterId);
 
 /* GET /api/tags/:tag_id [Mock]: 按照tag的id返回tag信息 */
-router.get('/tags/:tag_id', tag.show_by_id);
+router.get('/tags/:tag_id', tag.showById);
 
 /* GET /api/tags?category=:_category 返回某一_category名下的所有tag */
-router.get('/tags', tag.list_by_category);
+router.get('/tags', tag.listByCategory);
 
 /* GET /api/labels/:label_id [Mock]: 按照label的id返回label信息 */
-router.get('/labels/:label_id', label.show_by_id);
+router.get('/labels/:label_id', label.showById);
 
 /* GET /api/labels?category=:_category 返回某一_category名下的所有label */
-router.get('/labels', label.list_by_category);
+router.get('/labels', label.listByCategory);
 
 module.exports = router;
