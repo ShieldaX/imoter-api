@@ -28,6 +28,8 @@ exports.list= async (req, res, next) => {
   } catch(err) {
     console.log(err);
     next(err);
+    res.status(404);
+    return res.send({success: false, error_msg: '不存在'});
   }
 };
 
