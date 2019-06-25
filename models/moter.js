@@ -56,6 +56,11 @@ const MoterSchema = new Schema({
   gallery: {
     type: Boolean
   },
+  //标签列表（数组嵌入）
+  // labels: [{
+  //   type: String,
+  //   ref: 'Label'
+  // }],
   //被关注数目标记(热度)
   follows: {
     type: Number,
