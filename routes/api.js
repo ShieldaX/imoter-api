@@ -21,7 +21,6 @@ router.get('/', (req, res, next) => {
 router.get('/albums', album.list);
 
 /* GET /api/album/:album_id 按ID返回某图集 */
-//返回一个图集模型（2.0以及附带的标签以便直接按照标签搜索同类图集）
 router.get('/albums/:album_id', album.showById);
 
 /* GET /api/gallery/:tag_id 返回便签下的图集列表 */

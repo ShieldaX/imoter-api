@@ -8,7 +8,7 @@ const Schema = mongoose.Schema;
 
 //对标签进行分类
 const categories = {
-  values: 'country style publisher body magazine scene role beauty'.split(' '),
+  values: 'region style publisher body magazine scene role'.split(' '),
   message: 'enum validator failed for path `{PATH}` with value `{VALUE}`'
 };
 
