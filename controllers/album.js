@@ -12,9 +12,11 @@ const Tag = require('../models/tag');
 exports.showById = async (req, res, next) => {
   console.log('显示一个ID为'+req.params.album_id+'的图集详情：')
   let album = await Album.findById(req.params.album_id);
-  if (album) {
-    res.json({album});
-  };
+  if (album.length > 0) {
+    res.json({album, sucess: true, timestamp: Date.now()});
+  } else {
+    res.json({album, sucess: false, timestamp: Date.now()});
+  }
 };
 
 // TODO: 搜索某个地区的麻豆（们）的图集，兼容洲际，国际，地区
