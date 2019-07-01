@@ -77,6 +77,7 @@ exports.list = async (req, res, next) => {
   let skip = req.query.skip || 0;
   let limit = req.query.limit || 0;
   let queryBy = {};
+  let _query;
   if (req.query.moter) {
     _query = {moters: req.query.moter};
   }
