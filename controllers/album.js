@@ -12,10 +12,10 @@ const Tag = require('../models/tag');
 exports.showById = async (req, res, next) => {
   console.log('显示一个ID为'+req.params.album_id+'的图集详情：')
   let album = await Album.findById(req.params.album_id);
-  if (album.length > 0) {
+  if (album) {
     res.json({album, sucess: true, timestamp: Date.now()});
   } else {
-    res.json({album, sucess: false, timestamp: Date.now()});
+    res.json({msg: `album ${req.params.album_id} is not reachable`, sucess: false, timestamp: Date.now()});
   }
 };
 
