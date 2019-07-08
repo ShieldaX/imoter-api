@@ -46,7 +46,7 @@ const MoterSchema = new Schema({
   career: [String],
   hobbies: [String],
   //评分统计
-  scores: {
+  score: {
     count: Number,
     votes: Number
   },
