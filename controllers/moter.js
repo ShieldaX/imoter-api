@@ -1,7 +1,7 @@
 // 依赖注入
 // const _ = require('underscore');
 const Moter = require('../models/moter');
-
+const Album = require('../models/album');
 
 /**
  * 读取 查看
@@ -11,7 +11,15 @@ exports.showById = async (req, res, next) => {
   console.log('显示一个ID为'+req.params.moter_id+'的模特详情：')
   let moter = await Moter.findById(req.params.moter_id);
   if (moter) {
-    res.json({moter});
+    let avatar
+    if (req.query.fetchcover) {
+      let albums = await Album.find({moters: moter._id}, '_id', { autopopulate: false })
+        .limit(1);
+      if (albums.length > 0) {
+        avatar = albums[0]._id
+      }
+    }
+    res.json({moter, avatar, sucess: true, timestamp: Date.now()});
   };
 };
 
