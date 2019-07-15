@@ -84,12 +84,12 @@ exports.list = async (req, res, next) => {
     _query = {moters: req.query.moter};
   }
   try {
-    let albums = await Album.find(_query, '', {autopopulate: false})
+    let albums = await Album.find(_query, 'moters', {autopopulate: false})
       .sort({created: -1})
       .select('_id title')
       .skip(Number(skip))
       .limit(Number(limit));
-    res.json({albums});
+    res.json({albums, sucess: true, timestamp: Date.now()});
   } catch(err) {
     console.log(err);
     next(err);

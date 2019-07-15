@@ -20,7 +20,7 @@ router.get('/', (req, res, next) => {
 /* GET /api/albums?moter=:moter_id(&limit=:numlimit&skip=:numoffset)  (按所属模特ID)返回图集列表 */
 router.get('/albums', album.list);
 
-/* GET /api/album/:album_id 按ID返回某一个图集 */
+/* GET /api/albums/:album_id 按ID返回某一个图集 */
 router.get('/albums/:album_id', album.showById);
 
 /* GET /api/gallery?region=:given_region [过滤]按所属模特的地区返回图集列表 */
