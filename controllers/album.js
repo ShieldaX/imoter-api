@@ -9,10 +9,27 @@ const Tag = require('../models/tag');
  * 读取 查看
  */
 
+let getIntersection = function(list1, list2) {
+  return list1.filter(function(obj1) {
+    return (list2.some(function(obj2){
+      return obj1._id === obj2._id
+    }))
+  });
+}
+
 exports.showById = async (req, res, next) => {
   console.log('显示一个ID为'+req.params.album_id+'的图集详情：')
   let album = await Album.findById(req.params.album_id);
   if (album) {
+    let publishers = await Tag.find({category: 'publisher'}, '_id name');
+    if (publishers) {
+      let tags = album.tags;
+      let publisher = getIntersection(tags, publishers);
+      if (publisher.length > 0) {
+        album = album.toObject()
+        album.publisher = publisher[0];
+      }
+    };
     res.json({album, sucess: true, timestamp: Date.now()});
   } else {
     res.json({msg: `album ${req.params.album_id} is not reachable`, sucess: false, timestamp: Date.now()});

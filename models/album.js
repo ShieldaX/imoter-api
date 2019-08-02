@@ -153,6 +153,7 @@ AlbumSchema.methods.resolve = function () {
   console.log(this.moters.last());
 };
 
+
 AlbumSchema.plugin(require('mongoose-autopopulate'));
 
 module.exports = mongoose.model('Album', AlbumSchema);

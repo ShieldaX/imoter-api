@@ -81,6 +81,7 @@ TagSchema.statics.removeByName = function (spec_name, callback) {
   });
 };
 
+
 /**
  * Methods 定义实例方法
  */
