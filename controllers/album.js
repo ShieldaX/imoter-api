@@ -60,15 +60,15 @@ exports.listByRegion = async (req, res, next) => {
 exports.listByTag = async (req, res, next) => {
   let tag_id = req.params.tag_id;
   console.log(`显示标签${tag_id}的图集`);
-  let tag = await Tag.findById(req.params.tag_id, '_id category');
+  let tag = await Tag.findById(req.params.tag_id, '_id category desc');
   let skip = req.query.skip || 0;
   let limit = req.query.limit || 0;
-  let albums = await Album.find({tags: req.params.tag_id}, '_id title', { autopopulate: false })
+  let albums = await Album.find({tags: req.params.tag_id}, '_id title moters', { autopopulate: false })
     .skip(Number(skip))
     .limit(Number(limit));
   if (albums) {
     console.log('套图共计：'+albums.length+'册');
-    res.json({albums});
+    res.json({albums, sucess: true, timestamp: Date.now()});
   };
 };
 
