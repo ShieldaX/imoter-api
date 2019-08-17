@@ -68,7 +68,7 @@ exports.listByTag = async (req, res, next) => {
     .limit(Number(limit));
   if (albums) {
     console.log('套图共计：'+albums.length+'册');
-    res.json({albums, sucess: true, timestamp: Date.now()});
+    res.json({tag, albums, sucess: true, timestamp: Date.now()});
   };
 };
 
