@@ -13,7 +13,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 //imports Passport and the JsonWebToken library for some utilities
 router.post('/register', (req,res) => {
-     User.findOne({email: req.body.emailAddress})
+     User.findOne({email: req.body.email})
          .then(user => {
              if(user){
                 let error = 'Email Address Exists in Database.';
@@ -21,9 +21,10 @@ router.post('/register', (req,res) => {
              } else {
                 const newUser = new User({
                       name: req.body.name,
-                      email: req.body.emailAddress,
+                      email: req.body.email,
                       password: req.body.password
                  });
+                console.log(req.body.email);
                  bcrypt.genSalt(10, (err, salt) => {
                     if(err) throw err;
                     bcrypt.hash(newUser.password, salt,
