@@ -6,7 +6,7 @@
 const validator = require('validator');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema
-const passportLocalMongoose = require('passport-local-mongoose');
+// const passportLocalMongoose = require('passport-local-mongoose');
 
 /**
  * 定义用户模式
@@ -20,12 +20,22 @@ const UserSchema = new Schema({
   email: {  //注册邮箱
     type: String,
     required: true,
+    unique: true,
     lowercase: true,
     trim: true
   },
+  name: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true
+  },
   // 用户列表（数组嵌入）- Array of String
   following: [String], // 关注模特列表
-  favorites: [String] // 收藏图集列表
+  favorites: [String], // 收藏图集列表
+
   isVip: {  // VIP状态
     type: Boolean,
     default: false
@@ -92,6 +102,6 @@ const passportOpts = {
 };
 
 // UserSchema.plugin(passportLocalMongoose, passportOpts);
-UserSchema.plugin(passportLocalMongoose, {usernameField: 'email'});
+// UserSchema.plugin(passportLocalMongoose, {usernameField: 'email'});
 
 module.exports = mongoose.model('User', UserSchema);
