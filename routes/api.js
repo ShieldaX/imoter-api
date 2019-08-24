@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 // 加载控制器
+const user = require('../controllers/user');
 const moter = require('../controllers/moter');
 const tag = require('../controllers/tag');
 const label = require('../controllers/label');
@@ -17,8 +18,12 @@ router.get('/', (req, res, next) => {
 	});
 });
 
+router.post('/auth/register', user.register);
+
+router.post('/auth/sign_in', user.sign_in);
+
 /* GET /api/albums?moter=:moter_id(&limit=:numlimit&skip=:numoffset)  (按所属模特ID)返回图集列表 */
-router.get('/albums', album.list);
+router.get('/albums', user.loginRequired, album.list);
 
 /* GET /api/albums/:album_id 按ID返回某一个图集 */
 router.get('/albums/:album_id', album.showById);
