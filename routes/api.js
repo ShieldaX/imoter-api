@@ -23,7 +23,8 @@ router.post('/auth/register', user.register);
 router.post('/auth/sign_in', user.sign_in);
 
 /* GET /api/albums?moter=:moter_id(&limit=:numlimit&skip=:numoffset)  (按所属模特ID)返回图集列表 */
-router.get('/albums', user.loginRequired, album.list);
+// router.get('/albums', user.loginRequired, album.list);
+router.get('/albums', album.list);
 
 /* GET /api/albums/:album_id 按ID返回某一个图集 */
 router.get('/albums/:album_id', album.showById);
