@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const config = require('../config').config;
 
 // 连接数据库
+mongoose.set('useCreateIndex', true) //collection.ensureIndex is deprecated.
 mongoose.connect(config.db, { useNewUrlParser: true }, (err, db) => {
   if (!err) {
     //console.log(db);
