@@ -16,7 +16,7 @@ const UserSchema = new Schema({
   phone: {  //优先手机号注册
     type: String,
     // required: true,
-    unique: true,
+    // unique: true,
     trim: true
   },
   email: {  //注册邮箱
