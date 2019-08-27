@@ -47,6 +47,9 @@ router.get('/moters/:moter_id/gallery', gallery.showByMoterId);
 /* GET /api/tags?category=:_category 返回某一分类下的所有图集标签 */
 router.get('/tags', tag.listByCategory);
 
+/* GET /api/tags/search?name=:_name 搜索下的所有图集标签 */
+router.get('/tags/search', tag.searchByName);
+
 /* GET /api/tags/:tag_id 按照图集标签ID返回标签 */
 router.get('/tags/:tag_id', tag.showById);
 
