@@ -16,7 +16,7 @@ exports.showById = async (req, res, next) => {
 };
 
 exports.searchByName = async (req, res, next) => {
-  console.log('搜索名称为'+req.params.name+'的所有标签');
+  console.log('搜索名称为: '+req.query.name+' 的所有标签');
   let query = new RegExp(req.query.name, 'i'); //模糊查询参数
   let tags = await Tag.find({$or: [{'name': query}]}, '_id name');
   if (tags) {
