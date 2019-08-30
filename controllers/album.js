@@ -57,6 +57,22 @@ exports.listByRegion = async (req, res, next) => {
   res.json({albums});
 };
 
+exports.hotlist = async (req, res, next) => {
+  console.log('显示热门的图集')
+  let threshold = req.query.threshold;
+  let skip = req.query.skip || 0;
+  let limit = req.query.limit || 0;
+  let albums = await Album.find({}, '_id title moters', { autopopulate: false })
+    .where('views').gt(10000)
+    .sort('-views')
+    .skip(Number(skip))
+    .limit(Number(limit));
+  if (albums) {
+    console.log('找到：'+albums.length+'热门册');
+    res.json({albums, sucess: true, timestamp: Date.now()});
+  };
+};
+
 exports.listByTag = async (req, res, next) => {
   let tag_id = req.params.tag_id;
   console.log(`显示标签${tag_id}的图集`);

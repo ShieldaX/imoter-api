@@ -26,6 +26,8 @@ router.post('/auth/sign_in', user.sign_in);
 // router.get('/albums', user.loginRequired, album.list);
 router.get('/albums', album.list);
 
+router.get('/feed/hotlist', album.hotlist);
+
 /* GET /api/albums/:album_id 按ID返回某一个图集 */
 router.get('/albums/:album_id', album.showById);
 
